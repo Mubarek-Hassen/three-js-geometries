@@ -36,7 +36,16 @@ using
 // TEXTURES EXAMPLES
 const textureLoader = new THREE.TextureLoader(loadingManager);
 
-const colorTexture = textureLoader.load("/textures/door/color.jpg");
+// const colorTexture = textureLoader.load("/textures/door/color.jpg");
+// const colorTexture = textureLoader.load("/textures/checkerboard-1024x1024.png");
+const colorTexture = textureLoader.load("/textures/minecraft.png");
+
+//! FILTERING AND MIP MAPPING
+colorTexture.generateMipmaps = false;
+colorTexture.magFilter = THREE.NearestFilter
+colorTexture.minFilter = THREE.NearestFilter
+
+
 //!Repeat Texture
 // colorTexture.repeat.x = 2
 // colorTexture.repeat.y = 3
@@ -114,12 +123,14 @@ window.addEventListener("dblclick", () => {
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 scene.add(camera);
-camera.position.z = 3;
+camera.position.x = 1
+camera.position.y = 1
+camera.position.z = 1
 
 const renderer = new THREE.WebGLRenderer({ canvas });
-
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.setSize(sizes.width, sizes.height);
-
 const controls = new OrbitControls(camera, canvas);
 
 let clock = new THREE.Clock();
