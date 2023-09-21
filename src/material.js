@@ -3,14 +3,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 THREE.ColorManagement.enabled = false
 
-/**
- * Base
- */
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
-const scene = new THREE.Scene()
+const scene = new THREE.Scene();
 
 //! TEXTURES //
 
@@ -42,8 +40,22 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 
 
 //  * Mesh Matcap Material
-const material = new THREE.MeshMatcapMaterial()
-material.matcap = matcapTexture
+// const material = new THREE.MeshMatcapMaterial()
+// material.matcap = matcapTexture
+
+//  * Mesh Depth Material
+// const material = new THREE.MeshDepthMaterial()
+
+//  * Mesh Lambert Material
+const material = new THREE.MeshLambertMaterial()
+
+//  * Mesh Phong Material
+// const material = new THREE.MeshPhongMaterial()
+// material.shininess = 100;
+// material.specular = new THREE.Color(0x1188ff)
+
+// *  Mesh Toon Material
+// const material = new THREE.MeshToonMaterial()
 
 
 const sphere = new THREE.Mesh(
@@ -62,6 +74,19 @@ const torus = new THREE.Mesh(
 torus.position.x = 1.5
 
 scene.add(sphere, plane, torus)
+
+// Light
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const light = new THREE.PointLight(0xffffff, 0.5);
+light.position.x = 5;
+light.position.z = 5;
+
+
+scene.add(light);
+const hlp = new THREE.PointLightHelper(light)
+scene.add(hlp)
 
 /**
  * Sizes
