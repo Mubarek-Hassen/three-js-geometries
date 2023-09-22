@@ -47,7 +47,7 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 // const material = new THREE.MeshDepthMaterial()
 
 //  * Mesh Lambert Material
-const material = new THREE.MeshLambertMaterial()
+// const material = new THREE.MeshLambertMaterial()
 
 //  * Mesh Phong Material
 // const material = new THREE.MeshPhongMaterial()
@@ -55,7 +55,7 @@ const material = new THREE.MeshLambertMaterial()
 // material.specular = new THREE.Color(0x1188ff)
 
 // *  Mesh Toon Material
-// const material = new THREE.MeshToonMaterial()
+const material = new THREE.MeshToonMaterial()
 
 
 const sphere = new THREE.Mesh(
@@ -76,10 +76,10 @@ torus.position.x = 1.5
 scene.add(sphere, plane, torus)
 
 // Light
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambientLight);
 
-const light = new THREE.PointLight(0xffffff, 0.5);
+const light = new THREE.PointLight(0xffffff, 100);
 light.position.x = 5;
 light.position.z = 5;
 
