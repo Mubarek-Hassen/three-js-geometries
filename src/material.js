@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-
+import * as dat from "lil-gui"
 THREE.ColorManagement.enabled = false
 
 
@@ -9,6 +9,11 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene();
+
+// ! Debug Control - lil-gui
+const gui = new dat.GUI()
+
+
 
 //! TEXTURES //
 
@@ -55,20 +60,38 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 // material.specular = new THREE.Color(0x1188ff)
 
 // *  Mesh Toon Material
-const material = new THREE.MeshToonMaterial()
-material.gradientMap = gradientTexture;
+// const material = new THREE.MeshToonMaterial()
+// material.gradientMap = gradientTexture;
+// gradientTexture.minFilter = THREE.NearestFilter
+// gradientTexture.magFilter = THREE.NearestFilter
+// gradientTexture.generateMipmaps = false;
+
+// * MESH STANDARD MATERIAL *
+
+const material = new THREE.MeshStandardMaterial()
+// material.metalness = 0.45
+// material.roughness = 0.45
+material.map = doorColorTexture;
+material.aoMap = doorAmbientOcclusionTexture
+material.displacementMap = doorHeightTexture
+material.displacementScale = 0.05
+
+gui.add(material, "metalness").min(0).max(1).step(0.0001)
+gui.add(material, "roughness").min(0).max(1).step(0.0001)
+gui.add(material, "aoMapIntensity").min(0).max(10).step(0.0001)
+gui.add(material, "displacementScale").min(0.05).max(1).step(0.0001)
 
 const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(0.5, 16, 16),
+  new THREE.SphereGeometry(0.5, 64,64),
   material
 )
 sphere.position.x = -1.5
 const plane = new THREE.Mesh(
-  new THREE.PlaneGeometry(1,1),
+  new THREE.PlaneGeometry(1,1, 100, 100),
   material
 )
 const torus = new THREE.Mesh(
-  new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+  new THREE.TorusGeometry(0.3, 0.2, 64, 128),
   material
 )
 torus.position.x = 1.5
