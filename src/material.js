@@ -29,6 +29,16 @@ const doorAmbientOcclusionTexture = textureLoader.load("/textures/door/ambientOc
 const matcapTexture = textureLoader.load("/textures/matcaps/1.png")
 const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 
+// ! Environment Map
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+const environmentMapTexture = cubeTextureLoader.load([
+  "/textures/environmentMaps/0/px.jpg",
+  "/textures/environmentMaps/0/nx.jpg",
+  "/textures/environmentMaps/0/py.jpg",
+  "/textures/environmentMaps/0/ny.jpg",
+  "/textures/environmentMaps/0/pz.jpg",
+  "/textures/environmentMaps/0/nz.jpg",
+])
 
 // ! OBJECTS || MESHES
 //  * Mesh Basic Material
@@ -68,18 +78,37 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 
 // * MESH STANDARD MATERIAL *
 
-const material = new THREE.MeshStandardMaterial()
-// material.metalness = 0.45
-// material.roughness = 0.45
-material.map = doorColorTexture;
-material.aoMap = doorAmbientOcclusionTexture
-material.displacementMap = doorHeightTexture
-material.displacementScale = 0.05
+// const material = new THREE.MeshStandardMaterial()
+// material.metalness = 0
+// material.roughness = 1
+// material.map = doorColorTexture;
+// material.aoMap = doorAmbientOcclusionTexture
+// material.displacementMap = doorHeightTexture
+// material.displacementScale = 0.05
+// material.metalnessMap = doorMetalnessTexture
+// material.roughnessMap = doorRoughnessTexture
+// material.normalMap = doorNormalTexture
+// material.normalScale.set(0.5, 0.5)
+// material.transparent = true
+// material.alphaMap = doorAlphaTexture
 
+// * MESH STANDARD MATERIAL
+// const material = new THREE.MeshPhysicalMaterial()
+
+// ! Environment Map
+
+
+
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.7
+material.roughness = 0.2
+
+
+// Debug Controls
 gui.add(material, "metalness").min(0).max(1).step(0.0001)
 gui.add(material, "roughness").min(0).max(1).step(0.0001)
-gui.add(material, "aoMapIntensity").min(0).max(10).step(0.0001)
-gui.add(material, "displacementScale").min(0.05).max(1).step(0.0001)
+// gui.add(material, "aoMapIntensity").min(0).max(10).step(0.0001)
+// gui.add(material, "displacementScale").min(0.05).max(1).step(0.0001)
 
 const sphere = new THREE.Mesh(
   new THREE.SphereGeometry(0.5, 64,64),
@@ -169,13 +198,13 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sphere.rotation.y = 0.1 * elapsedTime
-    plane.rotation.y = 0.1 * elapsedTime
-    torus.rotation.y = 0.1 * elapsedTime
+    // sphere.rotation.y = 0.1 * elapsedTime
+    // plane.rotation.y = 0.1 * elapsedTime
+    // torus.rotation.y = 0.1 * elapsedTime
 
-    sphere.rotation.x = 0.15 * elapsedTime
-    plane.rotation.x = 0.15 * elapsedTime
-    torus.rotation.x = 0.15 * elapsedTime
+    // sphere.rotation.x = 0.15 * elapsedTime
+    // plane.rotation.x = 0.15 * elapsedTime
+    // torus.rotation.x = 0.15 * elapsedTime
 
     // Update controls
     controls.update()
