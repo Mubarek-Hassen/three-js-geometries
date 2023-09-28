@@ -1,12 +1,30 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import typefaceFont from "three/examples/fonts/helvetiker_regular.typeface.json"
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader"
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry"
 
 THREE.ColorManagement.enabled = false;
+
 
 //! SCENE
 const canvas = document.querySelector(".webgl")
 const scene = new THREE.Scene()
 
+
+//! TEXTURE
+const textLoader = new THREE.TextureLoader();
+
+
+//! FONTS
+const fontLoader = new FontLoader()
+
+fontLoader.load("fonts/helvetiker_regular.typeface.json", (font)=>{
+  console.log("loaded.")
+  const textGeometry = new TextGeometry("Hi Wubit!")
+})
+
+//! OBJECTS
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(1,1,1),
   new THREE.MeshBasicMaterial()
@@ -45,7 +63,7 @@ window.addEventListener("resize", ()=>{
 
 //!     CAMERA
 const camera = new THREE.PerspectiveCamera(75, sizes.width/sizes.height, 1, 1000)
-camera.position.set(0,0,5)
+camera.position.set(1,1,4)
 scene.add(camera)
 
 
@@ -67,7 +85,6 @@ const clock = new THREE.Clock()
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
     // Update objects
-    cube.rotation
     
     // Update controls
     controls.update()
