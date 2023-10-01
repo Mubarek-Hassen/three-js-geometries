@@ -58,18 +58,13 @@ const sizes = {
 
 //! FLOATING OBJECT
 const octahedronGeometry = new THREE.OctahedronGeometry()
-
-for(let i = 0; i < 100; i++){
-  const octa = new THREE.Mesh(octahedronGeometry, material)
-  octa.position.x = (Math.random() - 0.5) * 30
-  octa.position.y = (Math.random() - 0.5) * 30
-  octa.position.z = (Math.random() - 0.5) * 50
-  group.add(octa)
-}
+const octa = new THREE.Mesh(octahedronGeometry, material)
+// octa.position.x = -3
+group.add(octa)
 
 //! CAMERA
 const camera = new THREE.PerspectiveCamera(75, sizes.width/sizes.height, 0.1, 1000)
-camera.position.set(0,-1,8)
+camera.position.set(0,-2,9)
 scene.add(camera)
 
 // ! CONTROLS
@@ -115,15 +110,15 @@ const clock = new THREE.Clock()
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
     // Update objects
-    group.rotation.y = Math.sin(elapsedTime)
-    group2.position.y = Math.cos(elapsedTime)
+    group.position.y = Math.sin(elapsedTime) * Math.PI
+    group.position.x = Math.cos(elapsedTime) * Math.PI * 2
 
     // Update controls
     controls.update()
 
     // Render
     renderer.render(scene, camera)
-    
+
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
 }
